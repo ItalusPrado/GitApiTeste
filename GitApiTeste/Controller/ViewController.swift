@@ -34,6 +34,7 @@ class ViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetails"{
+            self.searchBar.resignFirstResponder()
             let vc = segue.destination as! DetailsViewController
             vc.user = self.userSelected
         }
@@ -76,6 +77,15 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: UISearchBarDelegate{
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
         if searchText.isEmpty{
@@ -125,6 +135,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
                 
             }
         }
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        self.searchBar.endEditing(true)
     }
     
 }
