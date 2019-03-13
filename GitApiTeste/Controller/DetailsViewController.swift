@@ -18,6 +18,8 @@ class DetailsViewController: UIViewController {
     @IBOutlet weak var blogLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
     
+    @IBOutlet weak var reposTableView: UITableView!
+    
     var user: User?
     
     override func viewDidLoad() {
@@ -33,11 +35,14 @@ class DetailsViewController: UIViewController {
         if let user = self.user{
             
             // Dados da label
-            self.nameLabel.text = user.details?.name
-            self.companyLabel.text = user.details?.company
-            self.emailLabel.text = user.details?.email
-            self.blogLabel.text = user.details?.blog
-            self.locationLabel.text = user.details?.location
+            self.nameLabel.text = user.details?.name ?? "-----"
+            self.companyLabel.text = user.details?.company ?? "-----"
+            self.emailLabel.text = user.details?.email ?? "-----"
+            self.blogLabel.text = user.details?.blog ?? "-----"
+            if self.blogLabel.text == ""{
+                self.blogLabel.text = "-----"
+            }
+            self.locationLabel.text = user.details?.location ?? "-----"
             
             // Download da imagem
             downloadImage()
@@ -57,4 +62,27 @@ class DetailsViewController: UIViewController {
         }
     }
 
+}
+
+extension DetailsViewController: UITableViewDelegate, UITableViewDataSource{
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Repositórios"
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if let repos = user?.repos{
+            return repos.count
+        }
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = reposTableView.dequeueReusableCell(withIdentifier: "reposCell") as! ReposTableViewCell
+        cell.linkLabel.text = user?.repos![indexPath.row].repoName
+        
+        return cell
+    }
+    
+    
 }

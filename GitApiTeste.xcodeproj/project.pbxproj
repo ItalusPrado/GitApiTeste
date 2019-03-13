@@ -21,6 +21,8 @@
 		8A537B9B22383AD90062D30E /* RequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A537B9A22383AD90062D30E /* RequestManager.swift */; };
 		8A537BA022383EA10062D30E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A537B9F22383EA10062D30E /* User.swift */; };
 		8A537BA2223883740062D30E /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A537BA1223883740062D30E /* DetailsViewController.swift */; };
+		8A537BA42238962C0062D30E /* ReposTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A537BA32238962C0062D30E /* ReposTableViewCell.swift */; };
+		8A537BA72239B8380062D30E /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A537BA62239B8380062D30E /* AlertView.swift */; };
 		9AAE570505F86CC96B01207D /* Pods_GitApiTeste.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2477792DBFC5E4F17DEDE9B8 /* Pods_GitApiTeste.framework */; };
 /* End PBXBuildFile section */
 
@@ -63,6 +65,8 @@
 		8A537B9A22383AD90062D30E /* RequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestManager.swift; sourceTree = "<group>"; };
 		8A537B9F22383EA10062D30E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		8A537BA1223883740062D30E /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
+		8A537BA32238962C0062D30E /* ReposTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReposTableViewCell.swift; sourceTree = "<group>"; };
+		8A537BA62239B8380062D30E /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
 		8E0E2C963EF759B3F8D1AE3E /* Pods-GitApiTeste.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitApiTeste.release.xcconfig"; path = "Pods/Target Support Files/Pods-GitApiTeste/Pods-GitApiTeste.release.xcconfig"; sourceTree = "<group>"; };
 		B33307423B1CFFB7DCF798C3 /* Pods_GitApiTesteUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GitApiTesteUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C49336814E1E029C24F70198 /* Pods-GitApiTesteTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitApiTesteTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GitApiTesteTests/Pods-GitApiTesteTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -177,6 +181,7 @@
 		8A537B912238356A0062D30E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8A537BA52239B7DC0062D30E /* Alert */,
 				8A537B95223836BC0062D30E /* Cells */,
 			);
 			path = View;
@@ -195,6 +200,7 @@
 			isa = PBXGroup;
 			children = (
 				8A537B97223836DB0062D30E /* UsersTableViewCell.swift */,
+				8A537BA32238962C0062D30E /* ReposTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -205,6 +211,14 @@
 				8A537B9A22383AD90062D30E /* RequestManager.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		8A537BA52239B7DC0062D30E /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				8A537BA62239B8380062D30E /* AlertView.swift */,
+			);
+			path = Alert;
 			sourceTree = "<group>";
 		};
 		D443C22158D9A943A5DB3D08 /* Pods */ = {
@@ -448,11 +462,13 @@
 			files = (
 				8A537B9B22383AD90062D30E /* RequestManager.swift in Sources */,
 				8A537B98223836DB0062D30E /* UsersTableViewCell.swift in Sources */,
+				8A537BA72239B8380062D30E /* AlertView.swift in Sources */,
 				8A537BA022383EA10062D30E /* User.swift in Sources */,
 				8A537B65223833E20062D30E /* ViewController.swift in Sources */,
 				8A537BA2223883740062D30E /* DetailsViewController.swift in Sources */,
 				8A537B94223835890062D30E /* Path.swift in Sources */,
 				8A537B63223833E20062D30E /* AppDelegate.swift in Sources */,
+				8A537BA42238962C0062D30E /* ReposTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

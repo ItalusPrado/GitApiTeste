@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var usersTableView: UITableView!
     
+    
     var usersArray = [User]()
     var filtered = [User]()
     
@@ -21,8 +22,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.searchBar.delegate = self
-        
         RequestManager.requestList(){ (dictArray) in
             for dict in dictArray{
                 self.usersArray.append(User(dict: dict))
@@ -30,6 +29,7 @@ class ViewController: UIViewController {
             self.filtered = self.usersArray
             self.usersTableView.reloadData()
         }
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -38,7 +38,40 @@ class ViewController: UIViewController {
             vc.user = self.userSelected
         }
     }
+    
+    @IBAction func searchUser(_ sender: Any) {
+        let alert = UIAlertController(title: "Digite o nome para pesquisa", message: nil, preferredStyle: .alert)
+        
+        let cancelAction  = UIAlertAction(title: "Cancelar", style: .cancel)
+        let yesAction = UIAlertAction(title: "Buscar", style: .default) { (_) in
+            RequestManager.requestUserInformation(nick: alert.textFields![0].text!, completion: { (response) in
+                let currentUser = User(dict: response)
+                currentUser.getDetails(completion: { (_) in
+                    currentUser.getRepos(completion: { (result) in
+                        self.userSelected = currentUser
+                        self.performSegue(withIdentifier: "showDetails", sender: self)
+                    })
+                    
+                })
+                
+            })
+        }
+        
+        alert.addAction(cancelAction)
+        alert.addAction(yesAction)
+        
+        alert.addTextField(configurationHandler: { (textField) in
+            textField.placeholder = "Nome"
+        })
 
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    
+    func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
+    }
 
 }
 
@@ -81,14 +114,17 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.userSelected = nil
+        let user = filtered[indexPath.row]
         
-        self.filtered[indexPath.row].getDetails { (loaded) in
+        user.getDetails { (loaded) in
             if loaded{
-                self.userSelected = self.filtered[indexPath.row]
-                self.performSegue(withIdentifier: "showDetails", sender: self)
+                user.getRepos(completion: { (loaded) in
+                    self.userSelected = self.filtered[indexPath.row]
+                    self.performSegue(withIdentifier: "showDetails", sender: self)
+                })
+                
             }
         }
     }
-    
     
 }

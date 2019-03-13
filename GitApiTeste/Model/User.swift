@@ -30,6 +30,7 @@ class User {
     let site_admin: Bool?
     
     var details: UserDetails?
+    var repos: [Repository]?
     
     init(dict: NSDictionary) {
         
@@ -56,6 +57,19 @@ class User {
     func getDetails(completion : @escaping (Bool)->Void){
         RequestManager.requestUserInformation(nick: self.login!) { (response) in
             self.details = UserDetails(dict: response)
+            self.getRepos(completion: { (_) in
+                completion(true)
+            })
+        }
+    }
+    
+    func getRepos(completion : @escaping (Bool)->Void){
+        RequestManager.requestRepos(nick: self.login!) { (response) in
+            var repos = [Repository]()
+            for repo in response{
+                repos.append(Repository(dict: repo))
+            }
+            self.repos = repos
             completion(true)
         }
     }
@@ -91,5 +105,15 @@ class UserDetails{
         self.following = dict["following"] as? Int ?? nil
         self.created_at = dict["created_at"] as? String ?? nil
         self.updated_at = dict["updated_at"] as? String ?? nil
+    }
+}
+
+class Repository {
+    
+    let repoName: String?
+    
+    init(dict: NSDictionary) {
+        let repoFullname = dict["full_name"] as? String ?? nil
+        self.repoName = String((repoFullname?.split(separator: "/").last!)!)
     }
 }

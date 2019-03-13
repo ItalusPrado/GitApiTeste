@@ -25,6 +25,9 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                     <textInputTraits key="textInputTraits"/>
+                                    <connections>
+                                        <outlet property="delegate" destination="BYZ-38-t0r" id="EoS-2T-Nya"/>
+                                    </connections>
                                 </searchBar>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="userCell" id="Nh5-Pp-Y1Y" customClass="UsersTableViewCell" customModule="GitApiTeste" customModuleProvider="target">
@@ -67,7 +70,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Lista de usuários" id="Vt8-G0-cwh"/>
+                    <navigationItem key="navigationItem" title="Lista de usuários" id="Vt8-G0-cwh">
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="RaV-g0-Ew1">
+                            <connections>
+                                <action selector="searchUser:" destination="BYZ-38-t0r" id="EP0-JY-3az"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="searchBar" destination="5kl-8O-Vdm" id="3Eu-hx-Hp1"/>
                         <outlet property="usersTableView" destination="Pst-63-bta" id="i9o-V6-1Sd"/>
@@ -150,9 +159,39 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qn2-KD-0Md">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qn2-KD-0Md">
                                 <rect key="frame" x="0.0" y="323" width="375" height="344"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="reposCell" id="oMe-gd-WLH" customClass="ReposTableViewCell" customModule="GitApiTeste" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oMe-gd-WLH" id="p7t-qt-0NW">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kzB-18-vi5">
+                                                    <rect key="frame" x="23" y="11.5" width="329" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" name="linkColor" catalog="System" colorSpace="catalog"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="kzB-18-vi5" firstAttribute="centerY" secondItem="p7t-qt-0NW" secondAttribute="centerY" id="DMy-O2-neE"/>
+                                                <constraint firstItem="kzB-18-vi5" firstAttribute="leading" secondItem="p7t-qt-0NW" secondAttribute="leadingMargin" constant="8" id="Zcx-hR-Yw5"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="kzB-18-vi5" secondAttribute="trailing" constant="8" id="n8C-tZ-yWy"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="linkLabel" destination="kzB-18-vi5" id="fLQ-0r-PHm"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="NJy-JX-ZU8" id="vpn-tf-e96"/>
+                                    <outlet property="delegate" destination="NJy-JX-ZU8" id="DOH-e9-Bbi"/>
+                                </connections>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="a7G-Uq-pLO">
                                 <rect key="frame" x="73" y="231" width="286" height="19.5"/>
@@ -216,6 +255,7 @@
                         <outlet property="locationLabel" destination="JPu-Gu-Xl5" id="SAV-gl-Mc7"/>
                         <outlet property="nameLabel" destination="GU9-85-TNM" id="KFp-me-Rpb"/>
                         <outlet property="profileImage" destination="dH5-TF-ZSg" id="ykZ-Wk-dOF"/>
+                        <outlet property="reposTableView" destination="qn2-KD-0Md" id="Qmz-H5-9h2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U8M-TB-Nsd" userLabel="First Responder" sceneMemberID="firstResponder"/>
