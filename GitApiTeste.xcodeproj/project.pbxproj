@@ -18,6 +18,9 @@
 		8A537B83223833E30062D30E /* GitApiTesteUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A537B82223833E30062D30E /* GitApiTesteUITests.swift */; };
 		8A537B94223835890062D30E /* Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A537B93223835890062D30E /* Path.swift */; };
 		8A537B98223836DB0062D30E /* UsersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A537B97223836DB0062D30E /* UsersTableViewCell.swift */; };
+		8A537B9B22383AD90062D30E /* RequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A537B9A22383AD90062D30E /* RequestManager.swift */; };
+		8A537BA022383EA10062D30E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A537B9F22383EA10062D30E /* User.swift */; };
+		8A537BA2223883740062D30E /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A537BA1223883740062D30E /* DetailsViewController.swift */; };
 		9AAE570505F86CC96B01207D /* Pods_GitApiTeste.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2477792DBFC5E4F17DEDE9B8 /* Pods_GitApiTeste.framework */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +60,9 @@
 		8A537B84223833E30062D30E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8A537B93223835890062D30E /* Path.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Path.swift; sourceTree = "<group>"; };
 		8A537B97223836DB0062D30E /* UsersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersTableViewCell.swift; sourceTree = "<group>"; };
+		8A537B9A22383AD90062D30E /* RequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestManager.swift; sourceTree = "<group>"; };
+		8A537B9F22383EA10062D30E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		8A537BA1223883740062D30E /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		8E0E2C963EF759B3F8D1AE3E /* Pods-GitApiTeste.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitApiTeste.release.xcconfig"; path = "Pods/Target Support Files/Pods-GitApiTeste/Pods-GitApiTeste.release.xcconfig"; sourceTree = "<group>"; };
 		B33307423B1CFFB7DCF798C3 /* Pods_GitApiTesteUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GitApiTesteUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C49336814E1E029C24F70198 /* Pods-GitApiTesteTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitApiTesteTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GitApiTesteTests/Pods-GitApiTesteTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -163,6 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				8A537B93223835890062D30E /* Path.swift */,
+				8A537B9F22383EA10062D30E /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -179,6 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				8A537B64223833E20062D30E /* ViewController.swift */,
+				8A537BA1223883740062D30E /* DetailsViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -194,6 +202,7 @@
 		8A537B99223838740062D30E /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				8A537B9A22383AD90062D30E /* RequestManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -437,8 +446,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A537B9B22383AD90062D30E /* RequestManager.swift in Sources */,
 				8A537B98223836DB0062D30E /* UsersTableViewCell.swift in Sources */,
+				8A537BA022383EA10062D30E /* User.swift in Sources */,
 				8A537B65223833E20062D30E /* ViewController.swift in Sources */,
+				8A537BA2223883740062D30E /* DetailsViewController.swift in Sources */,
 				8A537B94223835890062D30E /* Path.swift in Sources */,
 				8A537B63223833E20062D30E /* AppDelegate.swift in Sources */,
 			);
