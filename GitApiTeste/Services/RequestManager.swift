@@ -31,6 +31,7 @@ class RequestManager{
             switch response.result{
             case .success(let JSON):
                 if let jsonArray = JSON as? NSDictionary{
+                    print(jsonArray)
                     completion(jsonArray)
                 }
             case .failure(let ERROR):

@@ -29,7 +29,7 @@ class User {
     let type: String?
     let site_admin: Bool?
     
-    var details: NSDictionary?
+    var details: UserDetails?
     
     init(dict: NSDictionary) {
         
@@ -53,9 +53,10 @@ class User {
         self.site_admin = dict["site_admin"] as? Bool ?? nil
     }
     
-    func getDetails(){
-        RequestManager.requestUserInformation(url: Github.listUsers+"/"+self.login, method: .get) { (response) in
-            self.
+    func getDetails(completion : @escaping (Bool)->Void){
+        RequestManager.requestUserInformation(nick: self.login!) { (response) in
+            self.details = UserDetails(dict: response)
+            completion(true)
         }
     }
 }
@@ -77,7 +78,7 @@ class UserDetails{
     let updated_at: String?
     
     init(dict: NSDictionary) {
-        self.name = dict["id"] as? String ?? nil
+        self.name = dict["name"] as? String ?? nil
         self.company = dict["company"] as? String ?? nil
         self.blog = dict["blog"] as? String ?? nil
         self.location = dict["location"] as? String ?? nil

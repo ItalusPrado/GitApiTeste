@@ -16,6 +16,8 @@ class ViewController: UIViewController {
     var usersArray = [User]()
     var filtered = [User]()
     
+    var userSelected: User?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,7 +35,7 @@ class ViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetails"{
             let vc = segue.destination as! DetailsViewController
-        
+            vc.user = self.userSelected
         }
     }
 
@@ -78,8 +80,13 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        RequestManager.requestUserInformation(nick: filtered[indexPath.row].login) { (response) in
-            <#code#>
+        self.userSelected = nil
+        
+        self.filtered[indexPath.row].getDetails { (loaded) in
+            if loaded{
+                self.userSelected = self.filtered[indexPath.row]
+                self.performSegue(withIdentifier: "showDetails", sender: self)
+            }
         }
     }
     

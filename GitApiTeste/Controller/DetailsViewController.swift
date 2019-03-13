@@ -19,15 +19,42 @@ class DetailsViewController: UIViewController {
     @IBOutlet weak var locationLabel: UILabel!
     
     var user: User?
-    var loginNick: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        fillInformation()
+    }
+    
     func fillInformation(){
-        
+        if let user = self.user{
+            
+            // Dados da label
+            self.nameLabel.text = user.details?.name
+            self.companyLabel.text = user.details?.company
+            self.emailLabel.text = user.details?.email
+            self.blogLabel.text = user.details?.blog
+            self.locationLabel.text = user.details?.location
+            
+            // Download da imagem
+            downloadImage()
+        }
+    }
+    
+    func downloadImage() {
+        guard let urlPath = self.user?.avatar_url else {return}
+        if let url = URL(string: urlPath){
+            DispatchQueue.global().async {
+                if let data = try? Data( contentsOf:url){
+                    DispatchQueue.main.async {
+                        self.profileImage.image = UIImage( data:data)
+                    }
+                }
+            }
+        }
     }
 
 }
