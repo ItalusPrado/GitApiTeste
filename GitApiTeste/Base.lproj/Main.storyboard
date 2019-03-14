@@ -159,7 +159,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qn2-KD-0Md">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qn2-KD-0Md">
                                 <rect key="frame" x="0.0" y="323" width="375" height="344"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
@@ -256,11 +256,46 @@
                         <outlet property="nameLabel" destination="GU9-85-TNM" id="KFp-me-Rpb"/>
                         <outlet property="profileImage" destination="dH5-TF-ZSg" id="ykZ-Wk-dOF"/>
                         <outlet property="reposTableView" destination="qn2-KD-0Md" id="Qmz-H5-9h2"/>
+                        <segue destination="VR2-EY-VVn" kind="show" identifier="showGit" id="AsJ-is-32u"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U8M-TB-Nsd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="880.79999999999995" y="71.514242878560722"/>
+        </scene>
+        <!--Web Git View Controller-->
+        <scene sceneID="AEZ-aC-NOv">
+            <objects>
+                <viewController id="VR2-EY-VVn" customClass="WebGitViewController" customModule="GitApiTeste" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="GaL-4R-P53">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mmc-Rq-gfS">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Mmc-Rq-gfS" firstAttribute="leading" secondItem="sRR-3U-tgN" secondAttribute="leading" id="0gH-66-uHi"/>
+                            <constraint firstItem="Mmc-Rq-gfS" firstAttribute="top" secondItem="sRR-3U-tgN" secondAttribute="top" id="Upk-Ly-4gW"/>
+                            <constraint firstItem="sRR-3U-tgN" firstAttribute="bottom" secondItem="Mmc-Rq-gfS" secondAttribute="bottom" id="f2R-Oy-0gc"/>
+                            <constraint firstItem="sRR-3U-tgN" firstAttribute="trailing" secondItem="Mmc-Rq-gfS" secondAttribute="trailing" id="vgA-hm-QNC"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="sRR-3U-tgN"/>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="Mmc-Rq-gfS" id="izL-bU-el4"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pAQ-YT-qB8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1625" y="68"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="eU6-Hp-bke">

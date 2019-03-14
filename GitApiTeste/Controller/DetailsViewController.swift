@@ -22,6 +22,8 @@ class DetailsViewController: UIViewController {
     
     var user: User?
     
+    var currentIndex: Int?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -61,6 +63,13 @@ class DetailsViewController: UIViewController {
             }
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showGit"{
+            let vc = segue.destination as! WebGitViewController
+            vc.url = user?.repos![currentIndex!].html_url
+        }
+    }
 
 }
 
@@ -84,5 +93,9 @@ extension DetailsViewController: UITableViewDelegate, UITableViewDataSource{
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.currentIndex = indexPath.row
+        performSegue(withIdentifier: "showGit", sender: self)
+    }
     
 }

@@ -111,9 +111,11 @@ class UserDetails{
 class Repository {
     
     let repoName: String?
+    let html_url: String?
     
     init(dict: NSDictionary) {
         let repoFullname = dict["full_name"] as? String ?? nil
         self.repoName = String((repoFullname?.split(separator: "/").last!)!)
+        self.html_url = dict["html_url"] as? String ?? nil
     }
 }
