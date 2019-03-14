@@ -22,12 +22,15 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        RequestManager.requestList(){ (dictArray) in
-            for dict in dictArray{
-                self.usersArray.append(User(dict: dict))
+        RequestManager.requestList(path: Github.listUsers){ (dictArray, loaded) in
+            if loaded, let array = dictArray {
+                for dict in array{
+                    self.usersArray.append(User(dict: dict))
+                }
+                self.filtered = self.usersArray
+                self.usersTableView.reloadData()
             }
-            self.filtered = self.usersArray
-            self.usersTableView.reloadData()
+            
         }
         
     }
@@ -66,12 +69,6 @@ class ViewController: UIViewController {
         })
 
         self.present(alert, animated: true, completion: nil)
-    }
-    
-    
-    func dismissKeyboard() {
-        //Causes the view (or one of its embedded text fields) to resign the first responder status.
-        view.endEditing(true)
     }
 
 }

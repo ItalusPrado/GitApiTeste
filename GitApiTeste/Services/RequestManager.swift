@@ -11,16 +11,17 @@ import Alamofire
 
 class RequestManager{
     
-    static func requestList(completion : @escaping ([NSDictionary])->Void){
+    static func requestList(path: String, completion : @escaping ([NSDictionary]?, Bool)->Void){
         
-        Alamofire.request(Github.listUsers, method: .get, encoding: JSONEncoding.default).responseJSON { (response) in
+        Alamofire.request(path, method: .get, encoding: JSONEncoding.default).responseJSON { (response) in
             switch response.result{
             case .success(let JSON):
                 if let jsonArray = JSON as? [NSDictionary]{
-                    completion(jsonArray)
+                    completion(jsonArray, true)
                 }
-            case .failure(let ERROR):
-                print(ERROR)
+                completion(nil, false)
+            case .failure(_):
+                completion(nil, false)
             }
         }
     }
