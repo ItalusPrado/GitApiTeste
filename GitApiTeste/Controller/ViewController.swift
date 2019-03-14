@@ -21,17 +21,21 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        RequestManager.requestList(path: Github.listUsers){ (dictArray, loaded) in
-            if loaded, let array = dictArray {
-                for dict in array{
-                    self.usersArray.append(User(dict: dict))
+        LoadingAnimation.run()
+        if Connectivity.isConnectedToNetwork(){
+            RequestManager.requestList(path: Github.listUsers){ (dictArray, loaded) in
+                if loaded, let array = dictArray {
+                    for dict in array{
+                        self.usersArray.append(User(dict: dict))
+                    }
+                    self.filtered = self.usersArray
+                    self.usersTableView.reloadData()
+                    LoadingAnimation.stop()
                 }
-                self.filtered = self.usersArray
-                self.usersTableView.reloadData()
+                
             }
-            
         }
+        
         
     }
     
@@ -48,21 +52,26 @@ class ViewController: UIViewController {
         
         let cancelAction  = UIAlertAction(title: "Cancelar", style: .cancel)
         let yesAction = UIAlertAction(title: "Buscar", style: .default) { (_) in
-            RequestManager.requestUserInformation(nick: alert.textFields![0].text!, completion: { (response) in
-                if let message = response["message"] as? String, message == "Not Found"{
-                    Alert.show(title: "Usuário não encontrado", msg: "")
-                } else {
-                    let currentUser = User(dict: response)
-                    print(response)
-                    currentUser.getDetails(completion: { (_) in
-                        currentUser.getRepos(completion: { (result) in
-                            self.userSelected = currentUser
-                            self.performSegue(withIdentifier: "showDetails", sender: self)
+            LoadingAnimation.run()
+            if Connectivity.isConnectedToNetwork(){
+                RequestManager.requestUserInformation(nick: alert.textFields![0].text!, completion: { (response) in
+                    if let message = response["message"] as? String, message == "Not Found"{
+                        LoadingAnimation.stop()
+                        Alert.show(title: "Usuário não encontrado", msg: "")
+                    } else {
+                        let currentUser = User(dict: response)
+                        print(response)
+                        currentUser.getDetails(completion: { (_) in
+                            currentUser.getRepos(completion: { (result) in
+                                LoadingAnimation.stop()
+                                self.userSelected = currentUser
+                                self.performSegue(withIdentifier: "showDetails", sender: self)
+                            })
                         })
-                        
-                    })
-                }
-            })
+                    }
+                })
+            }
+            
         }
         
         alert.addAction(cancelAction)
@@ -126,16 +135,21 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.userSelected = nil
         let user = filtered[indexPath.row]
-        
-        user.getDetails { (loaded) in
-            if loaded{
-                user.getRepos(completion: { (loaded) in
-                    self.userSelected = self.filtered[indexPath.row]
-                    self.performSegue(withIdentifier: "showDetails", sender: self)
-                })
-                
+        LoadingAnimation.run()
+        if Connectivity.isConnectedToNetwork(){
+            user.getDetails { (loaded) in
+                if loaded{
+                    user.getRepos(completion: { (loaded) in
+                        LoadingAnimation.stop()
+                        self.userSelected = self.filtered[indexPath.row]
+                        self.performSegue(withIdentifier: "showDetails", sender: self)
+                    })
+                    
+                }
+                LoadingAnimation.stop()
             }
         }
+        
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
