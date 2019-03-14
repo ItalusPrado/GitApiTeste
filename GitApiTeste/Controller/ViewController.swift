@@ -49,15 +49,19 @@ class ViewController: UIViewController {
         let cancelAction  = UIAlertAction(title: "Cancelar", style: .cancel)
         let yesAction = UIAlertAction(title: "Buscar", style: .default) { (_) in
             RequestManager.requestUserInformation(nick: alert.textFields![0].text!, completion: { (response) in
-                let currentUser = User(dict: response)
-                currentUser.getDetails(completion: { (_) in
-                    currentUser.getRepos(completion: { (result) in
-                        self.userSelected = currentUser
-                        self.performSegue(withIdentifier: "showDetails", sender: self)
+                if let message = response["message"] as? String, message == "Not Found"{
+                    Alert.show(title: "Usuário não encontrado", msg: "")
+                } else {
+                    let currentUser = User(dict: response)
+                    print(response)
+                    currentUser.getDetails(completion: { (_) in
+                        currentUser.getRepos(completion: { (result) in
+                            self.userSelected = currentUser
+                            self.performSegue(withIdentifier: "showDetails", sender: self)
+                        })
+                        
                     })
-                    
-                })
-                
+                }
             })
         }
         
