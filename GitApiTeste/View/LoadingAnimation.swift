@@ -31,6 +31,14 @@ class LoadingAnimation {
                     keyWindow.addSubview(activityIndicatorView)
                     
                     bgView.center = CGPoint(x: keyWindow.center.x, y: keyWindow.center.y)
+                    
+                    let text = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 20))
+                    text.font = UIFont.boldSystemFont(ofSize: 20)
+                    text.textAlignment = .center
+                    text.textColor = .white
+                    text.center = CGPoint(x: activityIndicatorView.center.x, y: activityIndicatorView.center.y+30)
+                    text.text = "Carregando Informações"
+                    activityIndicatorView.addSubview(text)
                     activityIndicatorView.center = CGPoint(x: keyWindow.center.x, y: keyWindow.center.y)
                     activityIndicatorView.startAnimating()
                 }
