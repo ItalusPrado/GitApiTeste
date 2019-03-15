@@ -18,10 +18,25 @@ class ViewController: UIViewController {
     var filtered = [User]()
     
     var userSelected: User?
+    let refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         LoadingAnimation.run()
+        setRefresher()
+        refreshData(self)
+        
+        
+    }
+    
+    func setRefresher(){
+        usersTableView.refreshControl = refreshControl
+        refreshControl.tintColor = UIColor(red:0.25, green:0.72, blue:0.85, alpha:1.0)
+        refreshControl.attributedTitle = NSAttributedString(string: "Procurando novas informações")
+        refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
+    }
+    
+    @objc private func refreshData(_ sender: Any) {
         if Connectivity.isConnectedToNetwork(){
             RequestManager.requestList(path: Github.listUsers){ (dictArray, loaded) in
                 if loaded, let array = dictArray {
@@ -31,12 +46,16 @@ class ViewController: UIViewController {
                     self.filtered = self.usersArray
                     self.usersTableView.reloadData()
                 }
+                self.refreshControl.endRefreshing()
                 LoadingAnimation.stop()
-                
+            }
+        } else {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.75) {
+                Alert.show(title: "Sem conexão!", msg: "Verifique sua conexão e tente novamente")
+                self.refreshControl.endRefreshing()
+                LoadingAnimation.stop()
             }
         }
-        
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -21,8 +21,9 @@ class RequestManager{
                 }
                 if let json = JSON as? NSDictionary, let errorMessage = json["message"] as? String{
                     Alert.show(title: "Um erro ocorreu!", msg: errorMessage)
+                    completion(nil, false)
                 }
-                completion(nil, false)
+                
             case .failure(_):
                 completion(nil, false)
             }
@@ -58,9 +59,10 @@ class RequestManager{
                 }
                 if let json = JSON as? NSDictionary, let errorMessage = json["message"] as? String{
                     Alert.show(title: "Um erro ocorreu!", msg: errorMessage)
+                    completion(nil, false)
                 }
-            case .failure(let ERROR):
-                print(ERROR)
+            case .failure(_):
+                completion(nil, false)
             }
         }
     }

@@ -28,7 +28,6 @@ class GitApiTesteTests: XCTestCase {
         let user1 = User(dict: ["login": "José"])
         let user2 = User(dict: ["login": "João"])
         let user3 = User(dict: ["login": "Jonas"])
-        let user4 = User(dict: ["login": "Italus"])
         array = [user1,user2,user3]
     }
     
@@ -65,7 +64,7 @@ class GitApiTesteTests: XCTestCase {
                 XCTAssertEqual("Nickname não encontrado", cell.nameLabel.text)
             }
         }
-        array.popLast()
+        array.removeLast()
         
     }
 
