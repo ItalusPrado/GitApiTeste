@@ -14,7 +14,7 @@ class DetailsViewController: UIViewController {
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var companyLabel: UILabel!
-    @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var bioLabel: UILabel!
     @IBOutlet weak var blogLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
     
@@ -39,7 +39,7 @@ class DetailsViewController: UIViewController {
             // Dados da label
             self.nameLabel.text = user.details?.name ?? "-----"
             self.companyLabel.text = user.details?.company ?? "-----"
-            self.emailLabel.text = user.details?.email ?? "-----"
+            self.bioLabel.text = user.details?.bio ?? "-----"
             self.blogLabel.text = user.details?.blog ?? "-----"
             if self.blogLabel.text == ""{
                 self.blogLabel.text = "-----"

@@ -55,22 +55,32 @@ class User {
     }
     
     func getDetails(completion : @escaping (Bool)->Void){
-        RequestManager.requestUserInformation(nick: self.login!) { (response) in
-            self.details = UserDetails(dict: response)
-            self.getRepos(completion: { (_) in
-                completion(true)
-            })
+        RequestManager.requestUserInformation(nick: self.login!) { (response,loaded)  in
+            if loaded{
+                self.details = UserDetails(dict: response!)
+                self.getRepos(completion: { (_) in
+                    completion(true)
+                })
+            } else {
+                completion(false)
+            }
+            
         }
     }
     
     func getRepos(completion : @escaping (Bool)->Void){
-        RequestManager.requestRepos(nick: self.login!) { (response) in
-            var repos = [Repository]()
-            for repo in response{
-                repos.append(Repository(dict: repo))
+        RequestManager.requestRepos(nick: self.login!) { (response,loaded) in
+            if loaded{
+                var repos = [Repository]()
+                for repo in response!{
+                    repos.append(Repository(dict: repo))
+                }
+                self.repos = repos
+                completion(true)
+            } else {
+                completion(false)
             }
-            self.repos = repos
-            completion(true)
+            
         }
     }
 }

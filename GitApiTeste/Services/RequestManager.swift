@@ -19,6 +19,9 @@ class RequestManager{
                 if let jsonArray = JSON as? [NSDictionary]{
                     completion(jsonArray, true)
                 }
+                if let json = JSON as? NSDictionary, let errorMessage = json["message"] as? String{
+                    Alert.show(title: "Um erro ocorreu!", msg: errorMessage)
+                }
                 completion(nil, false)
             case .failure(_):
                 completion(nil, false)
@@ -26,26 +29,35 @@ class RequestManager{
         }
     }
     
-    static func requestUserInformation(nick: String, completion : @escaping (NSDictionary)->Void){
+    static func requestUserInformation(nick: String, completion : @escaping (NSDictionary?, Bool)->Void){
     
         Alamofire.request(Github.listUsers+"/"+nick, method: .get, encoding: JSONEncoding.default).responseJSON { (response) in
             switch response.result{
             case .success(let JSON):
-                if let jsonArray = JSON as? NSDictionary{
-                    completion(jsonArray)
+                if let json = JSON as? NSDictionary{
+                    if let errorMessage = json["message"] as? String, errorMessage != "Not Found"{
+                        Alert.show(title: "Um erro ocorreu!", msg: errorMessage)
+                        completion(nil, false)
+                    } else {
+                        completion(json, true)
+                    }
+                    
                 }
-            case .failure(let ERROR):
-                print(ERROR)
+            case .failure(_):
+                completion(nil, false)
             }
         }
     }
     
-    static func requestRepos(nick: String, completion : @escaping ([NSDictionary])->Void){
+    static func requestRepos(nick: String, completion : @escaping ([NSDictionary]?, Bool)->Void){
         Alamofire.request(Github.listUsers+"/"+nick+"/repos", method: .get, encoding: JSONEncoding.default).responseJSON { (response) in
             switch response.result{
             case .success(let JSON):
-                if let jsonArray = JSON as? [NSDictionary]{
-                    completion(jsonArray)
+                if let json = JSON as? [NSDictionary]{
+                    completion(json,true)
+                }
+                if let json = JSON as? NSDictionary, let errorMessage = json["message"] as? String{
+                    Alert.show(title: "Um erro ocorreu!", msg: errorMessage)
                 }
             case .failure(let ERROR):
                 print(ERROR)

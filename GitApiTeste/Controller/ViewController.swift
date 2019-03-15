@@ -30,8 +30,8 @@ class ViewController: UIViewController {
                     }
                     self.filtered = self.usersArray
                     self.usersTableView.reloadData()
-                    LoadingAnimation.stop()
                 }
+                LoadingAnimation.stop()
                 
             }
         }
@@ -54,21 +54,24 @@ class ViewController: UIViewController {
         let yesAction = UIAlertAction(title: "Buscar", style: .default) { (_) in
             LoadingAnimation.run()
             if Connectivity.isConnectedToNetwork(){
-                RequestManager.requestUserInformation(nick: alert.textFields![0].text!, completion: { (response) in
-                    if let message = response["message"] as? String, message == "Not Found"{
-                        LoadingAnimation.stop()
-                        Alert.show(title: "Usuário não encontrado", msg: "")
-                    } else {
-                        let currentUser = User(dict: response)
-                        print(response)
-                        currentUser.getDetails(completion: { (_) in
-                            currentUser.getRepos(completion: { (result) in
-                                LoadingAnimation.stop()
-                                self.userSelected = currentUser
-                                self.performSegue(withIdentifier: "showDetails", sender: self)
+                RequestManager.requestUserInformation(nick: alert.textFields![0].text!, completion: { (response, loaded) in
+                    if loaded{
+                        if let message = response!["message"] as? String, message == "Not Found"{
+                            LoadingAnimation.stop()
+                            Alert.show(title: "Usuário não encontrado", msg: "")
+                        } else {
+                            let currentUser = User(dict: response!)
+                            currentUser.getDetails(completion: { (_) in
+                                currentUser.getRepos(completion: { (result) in
+                                    LoadingAnimation.stop()
+                                    self.userSelected = currentUser
+                                    self.performSegue(withIdentifier: "showDetails", sender: self)
+                                })
                             })
-                        })
+                        }
                     }
+                    LoadingAnimation.stop()
+                    
                 })
             }
             
